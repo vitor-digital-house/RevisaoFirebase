@@ -31,7 +31,7 @@ class LoginViewModel : ViewModel() {
             userRepository.loginUser(user)
 
             _loginLiveData.value =
-                if (userRepository.loggedUser != null) Result.Success(Unit) else Result.Error
+                if (userRepository.loggedUser != null) Result.Success(data = Unit) else Result.Error
         }
     }
 
