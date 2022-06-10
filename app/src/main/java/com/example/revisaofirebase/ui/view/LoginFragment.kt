@@ -57,10 +57,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             clearErrors()
             val email = etEmail.text.toString()
             val pwd = etPassword.text.toString()
-            if (viewModel.isValidEmail(etEmail.text.toString()).not()) {
+            if (viewModel.isValidEmail(email).not()) {
                 showInvalidEmailError()
                 return@setOnClickListener
-            } else if (viewModel.isValidPassword(etPassword.text.toString()).not()) {
+            } else if (viewModel.isValidPassword(pwd).not()) {
                 showInvalidPasswordError()
                 return@setOnClickListener
             }
