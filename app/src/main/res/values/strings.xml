@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Revisao Firebase</string>
+    <string name="type_your_email">Type your e-mail</string>
+    <string name="type_an_email">Type an e-mail</string>
+    <string name="type_your_password">Type your password</string>
+    <string name="type_a_password">Type a password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="welcome_text">Hi, %s\nWelcome to my app.</string>
+    <string name="go_to_login">Go to Login</string>
 </resources>
