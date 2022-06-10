@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.revisaofirebase.data.Result
-import com.example.revisaofirebase.data.dto.UserDTO
 import com.example.revisaofirebase.data.UserRepository
+import com.example.revisaofirebase.data.dto.UserDTO
 import com.example.revisaofirebase.util.StringUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -32,7 +32,7 @@ class RegisterViewModel : ViewModel() {
             userRepository.registerUser(user)
 
             _registerLiveData.value =
-                if (Random.nextBoolean()) Result.Success(Unit) else Result.Error
+                if (Random.nextBoolean()) Result.Success(data = Unit) else Result.Error
         }
     }
 
