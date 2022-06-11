@@ -1,9 +1,9 @@
 package com.example.revisaofirebase.ui.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.revisaofirebase.data.dto.UserDTO
 import com.example.revisaofirebase.data.UserRepository
 import com.example.revisaofirebase.ui.vo.UserVO
+import com.google.firebase.auth.FirebaseUser
 
 class WelcomeViewModel : ViewModel() {
 
@@ -11,8 +11,9 @@ class WelcomeViewModel : ViewModel() {
     val loggedUser: UserVO
         get() = getLoggedUserFromRepository()
 
-    private fun getLoggedUserFromRepository() = convertUserDTOToVO(userRepository.loggedUser!!)
+    private fun getLoggedUserFromRepository() = convertFirebaseUserToVO(userRepository.loggedUser!!)
 
-    private fun convertUserDTOToVO(userDTO: UserDTO) = UserVO(email = userDTO.email)
+    private fun convertFirebaseUserToVO(firebaseUser: FirebaseUser) =
+        UserVO(email = firebaseUser.email!!)
 
 }

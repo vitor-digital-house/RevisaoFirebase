@@ -5,10 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.revisaofirebase.data.Result
-import com.example.revisaofirebase.data.dto.UserDTO
 import com.example.revisaofirebase.data.UserRepository
 import com.example.revisaofirebase.util.StringUtils
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
@@ -25,10 +23,7 @@ class LoginViewModel : ViewModel() {
         viewModelScope.launch {
             _loginLiveData.value = Result.Loading
 
-            delay(1_200)
-
-            val user = UserDTO(email, password)
-            userRepository.loginUser(user)
+            userRepository.loginUser(email, password)
 
             _loginLiveData.value =
                 if (userRepository.loggedUser != null) Result.Success(data = Unit) else Result.Error

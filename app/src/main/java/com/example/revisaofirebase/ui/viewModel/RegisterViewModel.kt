@@ -6,11 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.revisaofirebase.data.Result
 import com.example.revisaofirebase.data.UserRepository
-import com.example.revisaofirebase.data.dto.UserDTO
 import com.example.revisaofirebase.util.StringUtils
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 class RegisterViewModel : ViewModel() {
 
@@ -26,13 +23,15 @@ class RegisterViewModel : ViewModel() {
         viewModelScope.launch {
             _registerLiveData.value = Result.Loading
 
-            delay(1_200)
+            val task = userRepository.registerUser(email, password)
 
-            val user = UserDTO(email, password)
-            userRepository.registerUser(user)
+            task.addOnFailureListener {
+                _registerLiveData.value = Result.Error
+            }
 
-            _registerLiveData.value =
-                if (Random.nextBoolean()) Result.Success(data = Unit) else Result.Error
+            task.addOnSuccessListener {
+                _registerLiveData.value = Result.Success(data = Unit)
+            }
         }
     }
 

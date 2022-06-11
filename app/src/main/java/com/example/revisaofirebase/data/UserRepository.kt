@@ -1,14 +1,22 @@
 package com.example.revisaofirebase.data
 
-import com.example.revisaofirebase.data.dto.UserDTO
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class UserRepository {
 
-    private val userAuth = UserAuth
-    val loggedUser: UserDTO?
-        get() = userAuth.loggedUser
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    val loggedUser: FirebaseUser?
+        get() = firebaseAuth.currentUser
 
-    fun registerUser(user: UserDTO) = userAuth.registerUser(user)
-    fun loginUser(user: UserDTO) = userAuth.loginUser(user)
+    suspend fun registerUser(email: String, password: String) = withContext(Dispatchers.IO) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+    }
+
+    suspend fun loginUser(email: String, password: String) = withContext(Dispatchers.IO) {
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+    }
 
 }
