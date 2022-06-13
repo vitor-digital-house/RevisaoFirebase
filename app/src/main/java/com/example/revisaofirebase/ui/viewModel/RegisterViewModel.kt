@@ -23,14 +23,12 @@ class RegisterViewModel : ViewModel() {
         viewModelScope.launch {
             _registerLiveData.value = Result.Loading
 
-            val task = userRepository.registerUser(email, password)
-
-            task.addOnFailureListener {
-                _registerLiveData.value = Result.Error
-            }
-
-            task.addOnSuccessListener {
-                _registerLiveData.value = Result.Success(data = Unit)
+            userRepository.registerUser(email, password).addOnCompleteListener { task ->
+                _registerLiveData.value = if (task.isSuccessful) {
+                    Result.Success(data = Unit)
+                } else {
+                    Result.Error
+                }
             }
         }
     }
