@@ -23,14 +23,12 @@ class LoginViewModel : ViewModel() {
         viewModelScope.launch {
             _loginLiveData.value = Result.Loading
 
-            val task = userRepository.loginUser(email, password)
-
-            task.addOnFailureListener {
-                _loginLiveData.value = Result.Error
-            }
-
-            task.addOnSuccessListener {
-                _loginLiveData.value = Result.Success(data = Unit)
+            userRepository.loginUser(email, password).addOnCompleteListener { task ->
+                _loginLiveData.value = if (task.isSuccessful) {
+                    Result.Success(data = Unit)
+                } else {
+                    Result.Error
+                }
             }
         }
     }
